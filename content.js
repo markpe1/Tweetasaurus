@@ -25,4 +25,6 @@ setTimeout(function() {
 	return answer;
 	}
     console.log(String.fromCharCode(event.charCode));
+
+    document.querySelector("#tweet-box-home-timeline").querySelector("div").style.borderBottom = "2px red dashed";
   });
