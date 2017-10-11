@@ -11,7 +11,7 @@ setTimeout(function() {
 
   addEventListener("keypress", function(event) {
   	if (document.querySelector("#tweet-box-home-timeline") && document.querySelector("#tweet-box-home-timeline").querySelector("div")) {
-        var textBox = document.querySelector("#tweet-box-home-timeline").querySelector("div").innerText
+        var textBox = document.querySelector("#tweet-box-home-timeline").querySelector("div").innerText;
         console.log(textBox)
 	}
   	function abbreviate(string) {
