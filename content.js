@@ -1,6 +1,4 @@
 /* content.js */
-
-alert("You are on Twitter");
 	
 // Event listener for getting text from tweet
 chrome.runtime.onMessage.addListener(
