@@ -41,22 +41,22 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-  addEventListener("keypress", function(event) {
+addEventListener("keypress", function(event) {
   	var elem = document.querySelector("#tweet-box-home-timeline").querySelector("div");
-        var textBox = elem.outerHTML;
-		var style = textBox;
+	var textBox = elem.outerHTML;
+	var style = textBox;
 
-		// Array for negative test words
-		var dictionary = ["shit", "bitch", "asshole", "fucker"];
-		
-		// Change the color of the text for negative words
-        for (var i = 0; i < dictionary.length; i++) {
-        	var newstyle = style.replace(new RegExp(dictionary[i], 'g'), '<span style="color:red ! important;">' + dictionary[i] + '</span>');
-        	if (!(newstyle === style)) {
-        		count++;
-        	}
-        }
-        chrome.runtime.sendMessage({"message": count});
-        count = 0;
-  })
+	// Array for negative test words
+	var dictionary = ["shit", "bitch", "asshole", "fucker"];
+	
+	// Change the color of the text for negative words
+	for (var i = 0; i < dictionary.length; i++) {
+		var newstyle = style.replace(new RegExp(dictionary[i], 'g'), '<span style="color:red ! important;">' + dictionary[i] + '</span>');
+		if (!(newstyle === style)) {
+			count++;
+		}
+	}
+	chrome.runtime.sendMessage({"message": count});
+	count = 0;
+})
 
