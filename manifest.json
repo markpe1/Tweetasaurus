@@ -2,14 +2,12 @@
   "manifest_version": 2,
   "name": "Tweetasaurus",
   "version": "0.1",
-  "content_scripts": [
-  {
+  "content_scripts": [{
     "matches": [
       "https://twitter.com/*"
     ],
     "js": ["jquery-3.2.1.js", "content.js"]
-  }
-  ],
+  }],
   "background": {
     "scripts": ["jquery-3.2.1.js", "background.js"]
   },
@@ -18,20 +16,15 @@
      "default_popup": "popup.html"
   },
   "permissions": [
-    "contextMenus"
+    "https://api.datamuse.com/words?ml=*"
   ],
   "icons": { "16": "logo.png",
            "48": "logo.png",
-          "128": "logo.png" },
-
+          "128": "logo.png" 
+  },
   "oauth2": {
-   "client_id": "975410329966.apps.googleusercontent.com",
- "scopes": [
-   "<all urls>"  
- ],
-
- "content_security_policy":"script-src 'self' 'unsafe-eval' https://apis.google.com; object-src 'self'"
-
-
+    "client_id": "975410329966.apps.googleusercontent.com",
+    "scopes": [ "<all urls>" ],
+    "content_security_policy":"script-src 'self' 'unsafe-eval' https://apis.google.com; object-src 'self'"
   }
 }
