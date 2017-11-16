@@ -1,6 +1,8 @@
 /* popup.js */
 
 var thesaurus = {}; // Thesaurus for synonyms
+var dictionary = ["apeshit", "arsehole", "ass", "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
+   "cock", "cocks", "cunt", "dick", "dickhead", "faggot", "fuck", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy", "schlong", "shit", "shitty", "slut"];
 var xhr = new XMLHttpRequest(); // Javascript HTTP request
 
 // Ensure that correct window/tab is open
@@ -26,7 +28,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     // Save first five words in the JSON object for now
     var arr = [];
     for (var i = 0; i < 5; i++) {
-      arr[i] = jResult[i].word;
+      if (dictionary.indexOf(jResult[i].word) < 0)
+      {
+        arr[i] = jResult[i].word;
+      }
+      else 
+    {
+        arr[i] = jResult[i + 5].word;
+      }
     }
     thesaurus[request.message] = arr;
 

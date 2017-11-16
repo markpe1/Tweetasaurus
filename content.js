@@ -12,7 +12,8 @@ chrome.runtime.onMessage.addListener(
 		var style = textBox;
 
 		// Dictionary of negative words
-		var dictionary = ["shit", "bitch", "asshole", "fucker"];
+		var dictionary = ["apeshit", "arsehole", "ass", "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
+			 "cock", "cocks", "cunt", "dick", "dickhead", "faggot", "fuck", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy", "schlong", "shit", "shitty", "slut"];
 		
 		// Change the color of the text for negative words
         for (var i = 0; i < dictionary.length; i++) {
@@ -41,13 +42,14 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-addEventListener("keypress", function(event) {
+addEventListener("keydown", function(event) {
   	var elem = document.querySelector("#tweet-box-home-timeline").querySelector("div");
 	var textBox = elem.outerHTML;
 	var style = textBox;
 
 	// Array for negative test words
-	var dictionary = ["shit", "bitch", "asshole", "fucker"];
+	var dictionary = ["apeshit", "arsehole", "ass", "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
+			 "cock", "cocks", "cunt", "dick", "dickhead", "faggot", "fuck", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy", "schlong", "shit", "shitty", "slut"];
 	
 	// Change the color of the text for negative words
 	for (var i = 0; i < dictionary.length; i++) {
