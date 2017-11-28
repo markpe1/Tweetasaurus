@@ -2,8 +2,8 @@
 
 var thesaurus = {}; // Thesaurus for synonyms
 var dictionary = ["apeshit", "arsehole", "ass", "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
-  "cock", "cocks", "cunt", "dick", "dickhead", "faggot", "fuck", "fucker", "fucking", "goddamn", "jackass", "motherfucker", 
-  "penis", "pussy", "schlong", "shit", "shitty", "slut", "fucking", "crap", "douche", "damn"];
+   "cock", "cunt", "dick", "dickhead", "faggot", "fuck", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy", 
+   "shit", "shitty", "slut"];
 var xhr = new XMLHttpRequest(); // Javascript HTTP request
 
 // Ensure that correct window/tab is open
