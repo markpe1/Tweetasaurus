@@ -2,7 +2,8 @@
 
 var thesaurus = {}; // Thesaurus for synonyms
 var dictionary = ["apeshit", "arsehole", "ass", "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
-   "cock", "cocks", "cunt", "dick", "dickhead", "faggot", "fuck", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy", "schlong", "shit", "shitty", "slut"];
+  "cock", "cocks", "cunt", "dick", "dickhead", "faggot", "fuck", "fucker", "fucking", "goddamn", "jackass", "motherfucker", 
+  "penis", "pussy", "schlong", "shit", "shitty", "slut", "fucking", "crap", "douche", "damn"];
 var xhr = new XMLHttpRequest(); // Javascript HTTP request
 
 // Ensure that correct window/tab is open
@@ -28,18 +29,18 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     // Save first five words in the JSON object for now
     var arr = [];
     for (var i = 0; i < 5; i++) {
-      if (dictionary.indexOf(jResult[i].word) < 0)
-      {
-        arr[i] = jResult[i].word;
-      }
-      else 
-    {
-        arr[i] = jResult[i + 5].word;
-      }
+      // if (dictionary.indexOf(jResult[i].word) !== -1) {
+      //   arr[i] = jResult[i].word;
+      // }
+      // else {
+      //   arr[i] = jResult[i + 5].word;
+      // }
+      arr[i] = getRecursiveWord(jResult, i);
+      console.log(">>" + arr[i]);
     }
     thesaurus[request.message] = arr;
 
-    var html = document.getElementById("test").innerHTML
+    var html = document.getElementById("test").innerHTML;
     html += '<div class="dropdown"> <button class="dropbtn">' + request.message + '</button> <div id='+ request.message + ' class="dropdown-content">'
     var synonyms = thesaurus[request.message]
     for (var i = 0; i<synonyms.length; i++) {
@@ -76,6 +77,17 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
   } 
 })
+
+async function getRecursiveWord(jResult, j) {
+  if (dictionary.indexOf(jResult[j].word) == -1) {
+    console.log(jResult[j].word + " // is not in dictionary")
+    return jResult[j].word;
+  }
+  else {
+    console.log(jResult[j].word + " // is in dictionary")
+    getRecursiveWord(jResult, j+5);
+  }
+}
 
 function getCurrentTab(){
   return new Promise(function(resolve, reject){
