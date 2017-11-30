@@ -1,10 +1,15 @@
 /* popup.js */
 
 var thesaurus = {}; // Thesaurus for synonyms
-var dictionary = ["apeshit", "arsehole", "ass", "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
-   "cock", "cunt", "dick", "dickhead", "faggot", "fuck", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy", 
-   "shit", "shitty", "slut"];
+// Dictionary for negative words
+var dictionary = ["shithead", "slit", "prick", "horseshit", "dogshit", "shitty", "apeshit", "arsehole", "ass", "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
+  "cock", "cunt", "dick", "dickhead", "faggot", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy", 
+  "damn", "shit", "slut", "puss", "fuck"];
+
 var xhr = new XMLHttpRequest(); // Javascript HTTP request
+var count = 0; // Count for number of synonyms
+var arr = []; // Array for synonyms
+var word = ""; // String for original offensive word
 
 // Ensure that correct window/tab is open
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -15,8 +20,8 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 
 // Event listener for request (front content.js)
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  word = request.message; // Set the original offensive word
   if (isNaN(request.message)) { // Ensure requeest message is not a number
-
     // Create url for word and send a GET request
     var url = "https://api.datamuse.com/words?ml=" + request.message;
     xhr.open("GET", url, false);
@@ -27,28 +32,29 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     var jResult = JSON.parse(result);
     
     // Save first five words in the JSON object for now
-    var arr = [];
     for (var i = 0; i < 5; i++) {
-      // if (dictionary.indexOf(jResult[i].word) !== -1) {
-      //   arr[i] = jResult[i].word;
-      // }
-      // else {
-      //   arr[i] = jResult[i + 5].word;
-      // }
-      arr[i] = getRecursiveWord(jResult, i);
-      console.log(">>" + arr[i]);
+      getRecursiveWord(jResult, i);
     }
-    thesaurus[request.message] = arr;
+  } 
+})
 
+// Successful callback for synonyms Promise
+function successCallback(result) {
+  arr[count] = result; // Save result into array
+  count++;
+  if (count == 5) { // Check that we have five synonyms
+    thesaurus[word] = arr;
+    
+    // Concatenate HTML for dropdown on menu that contains synonyms
     var html = document.getElementById("test").innerHTML;
-    html += '<div class="dropdown"> <button class="dropbtn">' + request.message + '</button> <div id='+ request.message + ' class="dropdown-content">'
-    var synonyms = thesaurus[request.message]
-    for (var i = 0; i<synonyms.length; i++) {
+    html += '<div class="dropdown"> <button class="dropbtn">' + word + '</button> <div id='+ word + ' class="dropdown-content">'
+    var synonyms = thesaurus[word]
+    for (var i = 0; i < synonyms.length; i++) {
       html += '<a id=' + synonyms[i] + ' href="#">' + synonyms[i] + '</a>'
     }
     html += ' </div> </div>';
     document.getElementById("test").innerHTML = html;
-
+    console.log(html);
 
     // Create buttons for words + synonyms
     var gridButtons = document.querySelectorAll('button.dropbtn');
@@ -57,7 +63,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
           item.addEventListener('click', function () {
             document.getElementById(item.firstChild.nodeValue).classList.toggle("show");
           });
-
     });
 
     // Replace word in textbox on click
@@ -75,16 +80,24 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)
       })
     }
-  } 
-})
+    count = 0; // Reset the count for different words
+  }
+}
 
-async function getRecursiveWord(jResult, j) {
+// Failure callback for synonyms Promise
+function failureCallback(error) {
+  console.log("It failed with: " + error);
+}
+
+// Recursive function to find synonyms that are not in the dictionary
+function getRecursiveWord(jResult, j) {
   if (dictionary.indexOf(jResult[j].word) == -1) {
-    console.log(jResult[j].word + " // is not in dictionary")
-    return jResult[j].word;
+    // return jResult[j].word;
+    var p = Promise.resolve(jResult[j].word);
+    p.then(successCallback, failureCallback);
+    return p;
   }
   else {
-    console.log(jResult[j].word + " // is in dictionary")
     getRecursiveWord(jResult, j+5);
   }
 }
