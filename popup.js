@@ -2,9 +2,9 @@
 
 var thesaurus = {}; // Thesaurus for synonyms
 // Dictionary for negative words
-var dictionary = ["shithead", "slit", "prick", "horseshit", "dogshit", "shitty", "apeshit", "arsehole", "ass", "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
+var dictionary = ["fuckwit", "fagot", "cocksucker", "dumbass", "asshat", "shithead", "slit", "prick", "horseshit", "dogshit", "shitty", "apeshit", "arsehole",  "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
   "cock", "cunt", "dick", "dickhead", "faggot", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy", 
-  "damn", "shit", "slut", "puss", "fuck"];
+  "damn", "shit", "slut", "puss", "fuck", "whore", "ass", "fag"];
 
 var xhr = new XMLHttpRequest(); // Javascript HTTP request
 var count = 0; // Count for number of synonyms

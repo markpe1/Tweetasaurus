@@ -3,9 +3,9 @@
 var count = 0; // Count for number of offensive words detected in the tweet
 
 // Dictionary for negative words
-var dictionary = ["shithead", "prick", "horseshit", "dogshit", "shitty", "apeshit", "arsehole", "ass", "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
+var dictionary = ["fagot", "fuckwit", "cocksucker", "dumbass", "asshat", "shithead", "prick", "horseshit", "dogshit", "shitty", "apeshit", "arsehole", "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
 "cock", "cunt", "dick", "dickhead", "faggot", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy", 
-"damn", "shit", "slut", "puss", "fuck"];
+"damn", "shit", "slut", "puss", "fuck", "ass", "whore", "fag"];
 
 // Display for toxicity level
 var tox = '<div id="tox">Toxicity Level: <span id="level">0</span></div>';
