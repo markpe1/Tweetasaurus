@@ -19,3 +19,13 @@ Javascript file that accepts data from content.js, then searches for synonyms fo
 HTML code for the pop-up menu interface that allows the user to replace word instances
 ###### popup.css
 Styling parameters for popup.html
+
+## Word Analysis Files 
+###### badWordAnalysis.py
+This file contains a very simple algorithm, gets the first five words (that sense2vec can process) from datamuse, finds the cosine similarity average for each word over the 5 entires, and then the total overall cosine average for the algorithm itself. 
+###### output.txt 
+This file contains the output from badWordAnalysis.py, with each bad word, its average for results from datamuse, and the overal cosine average at the end.
+###### updatedAlgorithm.py
+This file emulated the algorithm the popup uses to find alternative words to provide to the user, it provides an output into finalOutput.txt about the overal cosine average for word similarity and for each word individually. 
+###### finalOutput.txt
+This file continas each bad word with its assosicated cosine relativity average over the 5 words the algorithm will suggest to the user to replace instead of the offensive word and the overall cosine for all words
