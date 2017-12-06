@@ -1,13 +1,15 @@
 /* content.js */
-
+// The code in this file includes the code for the listeners for the
+// text in the tweet box.
 
 var count = 0; // Count for number of offensive words detected in the tweet
 
 // Dictionary for negative words
-var dictionary = ["fagot", "fuckwit", "cocksucker", "dumbass", "asshat", "shithead", "prick", "horseshit", "dogshit", "shitty", "apeshit", "arsehole", "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
-"cock", "cunt", "dickhead", "faggot", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy", "fucker",
-"damn", "shit", "slut", "puss", "fuck", "ass", "whore", "fag", "dick", "cock"];
 
+var dictionary = ["fagot", "fuckwit", "cocksucker", "dumbass", "asshat", "shithead", "prick", "horseshit", "dogshit", 
+	"shitty", "apeshit", "arsehole", "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
+	"cock", "cunt", "dickhead", "faggot", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy",
+	"damn", "shit", "slut", "puss", "fuck", "ass", "whore", "fag", "dick", "cock"];
 
 // Event listener for getting text from tweet
 chrome.runtime.onMessage.addListener(
@@ -38,7 +40,6 @@ chrome.runtime.onMessage.addListener(
 				contains = false;
 			} 
 		}
-
 		// Update the style and the tweet box
 		elem.outerHTML = style;
     }

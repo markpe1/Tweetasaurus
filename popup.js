@@ -1,10 +1,21 @@
 /* popup.js */
+// The code in this file includes the code for the popup (appears when
+// the browser action button is clicked).
 
-var thesaurus = {}; // Thesaurus for synonyms
+// Thesaurus for synonyms
+var thesaurus = {};
+
 // Dictionary for negative words
-var dictionary = ["fuckwit", "fagot", "cocksucker", "dumbass", "asshat", "shithead", "slit", "prick", "horseshit", "dogshit", "shitty", "apeshit", "arsehole",  "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
-  "cock", "cunt", "dick", "dickhead", "faggot", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy", 
-  "damn", "shit", "slut", "puss", "fuck", "whore", "ass", "fag"];
+var dictionary = ["fuckwit", "fagot", "cocksucker", "dumbass", "asshat", "shithead", "slit", "prick", "horseshit", "dogshit",
+    "shitty", "apeshit", "arsehole",  "asshole", "bastard", "bitch", "bollocks", "bullshit", "bunghole", "butthole",
+    "cock", "cunt", "dick", "dickhead", "faggot", "fucker", "fucking", "goddamn", "jackass", "motherfucker", "penis", "pussy",
+    "damn", "shit", "slut", "puss", "fuck", "whore", "ass", "fag", 'walk out', 'disagree with', 'hawkshaw', 'sporting lady',
+    'kitty-cat', 'walk out', 'disagree with', 'bust up', 'come down', 'resort to', 'lavigne', 'birth control', 'slip up',
+    'one another', 'get over', 'each other', 'feel for', 'go out','shut up', 'rid of', 'look after', 'white people',
+    'suck off', 'preanal', 'fingerer', 'dasypygal', 'effluvium', 'shitfaced', 'misbegotten', 'illegitimate child',
+    'backbite', 'bollix', 'screw up', 'fuck up', 'mess up', 'shnook', 'stopcock', 'poove', 'bally', 'zany','glans',
+    'purulent',  'slattern', 'fornicatress', 'loose woman', 'slovenly woman', 'douche bag', 'numskull', 'buncombe',
+    'cocotte', 'cyprian'];
 
 var xhr = new XMLHttpRequest(); // Javascript HTTP request
 var count = 0; // Count for number of synonyms
@@ -49,12 +60,13 @@ function successCallback(result) {
     var html = document.getElementById("test").innerHTML;
     html += '<div class="dropdown"> <button class="dropbtn">' + word + '</button> <div id='+ word + ' class="dropdown-content">'
     var synonyms = thesaurus[word]
+    
     for (var i = 0; i < synonyms.length; i++) {
       html += '<a id=' + synonyms[i] + ' href="#">' + synonyms[i] + '</a>'
     }
+
     html += ' </div> </div>';
     document.getElementById("test").innerHTML = html;
-    console.log(html);
 
     // Create buttons for words + synonyms
     var gridButtons = document.querySelectorAll('button.dropbtn');
@@ -71,16 +83,13 @@ function successCallback(result) {
       term = document.getElementById(anchors[i].id)
       badTerm = term.parentNode.id
       term.addEventListener('click', function () {
-          getCurrentTab().then(function(tab){
-            console.log(term)
-            console.log(this)
+          getCurrentTab().then(function(tab) {
             chrome.tabs.sendMessage(tab.id, {"message": this.id + " " + this.parentNode.id});
           }.bind(this));
-        console.log(this)
         this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)
       })
     }
-    count = 0; // Reset the count for different words
+    count = 0; // Reset the count for the other words
   }
 }
 
@@ -102,7 +111,7 @@ function getRecursiveWord(jResult, j) {
   }
 }
 
-function getCurrentTab(){
+function getCurrentTab() {
   return new Promise(function(resolve, reject){
     chrome.tabs.query({
       active: true,               // Select active tabs
@@ -113,7 +122,7 @@ function getCurrentTab(){
   });
 }
 
-function assignTab(){
+function assignTab() {
   return new Promise(function(resolve, reject){
     chrome.tabs.query({
       active: true,               // Select active tabs
